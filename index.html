@@ -1,0 +1,861 @@
+
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071b16">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Sayangi Islam Kita Sepenuh Hati</title>
+
+<style>
+:root{
+ --bg:#07130f;--panel:#10231b;--panel2:#162d23;
+ --gold:#d5b568;--green:#176b46;--text:#f5f1e6;
+ --muted:#aab9ae;--border:rgba(213,181,104,.2);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+ font-family:Arial,sans-serif;line-height:1.6}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+header{position:sticky;top:0;z-index:10;background:#07130fee;
+ backdrop-filter:blur(15px);border-bottom:1px solid var(--border)}
+.nav{max-width:1200px;margin:auto;padding:14px 20px;
+ display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:bold;color:var(--gold)}
+.brand img{width:43px;height:43px;object-fit:contain;border-radius:10px}
+.brand-icon{font-size:27px}
+.nav button,.btn{border:0;border-radius:9px;padding:11px 17px;
+ background:var(--gold);color:#17150d;font-weight:bold}
+.btn.secondary,.nav button.secondary{background:var(--panel2);
+ color:var(--text);border:1px solid var(--border)}
+main{max-width:1200px;margin:auto;padding:25px 20px 70px}
+.hero{min-height:410px;border:1px solid var(--border);border-radius:22px;
+ padding:55px 30px;display:flex;align-items:center;position:relative;
+ overflow:hidden;background:linear-gradient(110deg,#071b14ed,#0b241bd9),
+ url('https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=1600')
+ center/cover}
+.hero:after{content:"☪";position:absolute;right:6%;top:10%;
+ font-size:210px;color:#d5b56812;animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-18px) rotate(8deg)}}
+.hero-content{max-width:700px;position:relative;z-index:1}
+.eyebrow{color:var(--gold);letter-spacing:3px;font-size:12px}
+h1{font-size:clamp(35px,6vw,65px);line-height:1.13;margin:15px 0}
+h2{color:var(--gold);margin:0 0 15px}
+p{color:var(--muted)}
+.section{margin-top:38px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:17px}
+.card{background:var(--panel);border:1px solid var(--border);
+ border-radius:15px;padding:20px;min-width:0}
+.price{font-size:32px;color:var(--gold);font-weight:bold}
+.tag{display:inline-block;background:#1d4933;color:#a9e0b9;
+ border-radius:30px;padding:4px 11px;font-size:12px}
+input,select,textarea{width:100%;padding:12px;margin:7px 0 14px;
+ background:#081811;border:1px solid var(--border);border-radius:8px;
+ color:white;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+label{font-size:13px;color:var(--muted)}
+.form{max-width:550px}
+.video{overflow:hidden;padding:0}
+.video iframe{width:100%;aspect-ratio:16/9;border:0;display:block}
+.video-info{padding:14px}
+.video-info h3{margin:0;color:var(--gold)}
+.hidden{display:none!important}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+.tabs button{background:var(--panel2);color:white;border:1px solid var(--border);
+ padding:10px 14px;border-radius:8px}
+.tabs button.active{background:var(--gold);color:#17150d}
+.stat{font-size:28px;color:var(--gold);font-weight:bold}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:650px}
+td,th{text-align:left;padding:12px;border-bottom:1px solid var(--border)}
+th{color:var(--gold)}
+.status{padding:5px 9px;border-radius:20px;font-size:12px}
+.approved{background:#174c31;color:#9de5b4}
+.pending{background:#51401b;color:#f2d58c}
+.failed{background:#542525;color:#ffaaaa}
+.notice{padding:12px;background:#1c3929;border-left:3px solid var(--gold);
+ border-radius:7px;margin:12px 0;color:#d9e7dc}
+footer{text-align:center;border-top:1px solid var(--border);
+ padding:30px;color:var(--muted)}
+.small{font-size:12px;color:var(--muted)}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+.actions button{padding:7px 10px;font-size:12px}
+hr{border:0;border-top:1px solid var(--border);margin:20px 0}
+.video-link{display:inline-block;margin-top:10px;color:var(--gold);
+ text-decoration:none;font-size:13px}
+.video-link:hover{text-decoration:underline}
+.video-error{font-size:12px;color:#f2d58c;margin-top:8px}
+@media(max-width:600px){
+ .nav{padding:12px}.brand{font-size:13px}
+ .hero{padding:35px 20px;min-height:370px}
+ .hero:after{font-size:130px}
+ main{padding:17px 13px 50px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="nav">
+  <div class="brand">
+   <img id="navLogo" class="hidden" alt="Logo">
+   <span id="navIcon" class="brand-icon">☪</span>
+   <span id="navBrand">SAYANGI ISLAM KITA</span>
+  </div>
+  <div class="actions">
+   <button class="secondary" onclick="showPage('home')">Utama</button>
+   <button onclick="showPage('customerLogin')">Login</button>
+   <button class="secondary" onclick="showPage('adminLogin')">Admin</button>
+  </div>
+ </div>
+</header>
+
+<main>
+
+<!-- LANDING PAGE -->
+<section id="home">
+ <div class="hero">
+  <div class="hero-content">
+   <div class="eyebrow">ILMU • IMAN • AMAL</div>
+   <h1 id="heroTitle">Sayangi Islam Kita Sepenuh Hati</h1>
+   <p id="heroDesc">Mendekatkan diri kepada Allah melalui ilmu,
+   penghayatan dan ceramah agama Islam. Jadikan ilmu sebagai
+   panduan kehidupan seharian.</p>
+   <button class="btn" onclick="document.getElementById('plans').scrollIntoView({behavior:'smooth'})">
+    Mula Melanggan
+   </button>
+   <button class="btn secondary" onclick="showPage('customerLogin')">Masuk Pelanggan</button>
+  </div>
+ </div>
+
+ <section class="section">
+  <h2 id="aboutTitle">Mengapa Bersama Kami?</h2>
+  <div class="grid">
+   <div class="card"><div class="stat">☪</div><h3>Pengisian Islam</h3>
+    <p>Pelbagai perkongsian ilmu dan pengisian kerohanian.</p></div>
+   <div class="card"><div class="stat">▶</div><h3>Koleksi Ceramah</h3>
+    <p>Menonton koleksi video ceramah melalui YouTube.</p></div>
+   <div class="card"><div class="stat">∞</div><h3>Akses Pelanggan</h3>
+    <p>Koleksi video boleh ditambah dari semasa ke semasa oleh admin.</p></div>
+  </div>
+ </section>
+
+ <section class="section" id="plans">
+  <h2 id="planTitle">Pilih Pakej Langganan</h2>
+  <div class="grid">
+   <div class="card">
+    <span class="tag">BULANAN</span>
+    <div class="price">RM5.00</div>
+    <p>Langganan selama 30 hari.</p>
+    <button class="btn" onclick="selectPlan('monthly')">Pilih Bulanan</button>
+   </div>
+   <div class="card">
+    <span class="tag">TAHUNAN</span>
+    <div class="price">RM50.00</div>
+    <p>Langganan selama 365 hari.</p>
+    <button class="btn" onclick="selectPlan('yearly')">Pilih Tahunan</button>
+   </div>
+  </div>
+  <div class="notice">Pendaftaran akan menunggu pengesahan admin.
+   Tempoh langganan bermula selepas permohonan diluluskan.</div>
+ </section>
+
+ <section class="section">
+  <h2 id="contactTitle">Sertai Kami</h2>
+  <p>Daftar sebagai pelanggan untuk mendapatkan ID akses peribadi.</p>
+  <button class="btn" onclick="showPage('register')">Daftar Sekarang</button>
+ </section>
+</section>
+
+<!-- REGISTER -->
+<section id="register" class="hidden">
+ <div class="card form">
+  <h2>Pendaftaran Pelanggan</h2>
+  <p>Isi maklumat untuk mendapatkan ID pelanggan automatik.</p>
+  <label>Nama penuh</label><input id="regName" placeholder="Nama penuh">
+  <label>Nombor telefon</label><input id="regPhone" type="tel" placeholder="01XXXXXXXX">
+  <label>Pakej langganan</label>
+  <select id="regPlan">
+   <option value="monthly">Bulanan - RM5.00</option>
+   <option value="yearly">Tahunan - RM50.00</option>
+  </select>
+  <button class="btn" onclick="registerCustomer()">Hantar Pendaftaran</button>
+  <button class="btn secondary" onclick="showPage('home')">Kembali</button>
+  <div id="regResult"></div>
+ </div>
+</section>
+
+<!-- CUSTOMER LOGIN -->
+<section id="customerLogin" class="hidden">
+ <div class="card form">
+  <h2>Portal Pelanggan</h2>
+  <p>Masukkan ID pelanggan anda sahaja.</p>
+  <label>ID Pelanggan</label>
+  <input id="customerId" placeholder="Contoh: SIK-2026-00001">
+  <button class="btn" onclick="customerLogin()">Log Masuk</button>
+  <div id="loginMessage"></div>
+ </div>
+</section>
+
+<!-- CUSTOMER DASHBOARD -->
+<section id="customerDashboard" class="hidden">
+ <div class="card">
+  <h2 id="welcomeCustomer">Selamat Datang</h2>
+  <p id="customerDetails"></p>
+  <div class="grid">
+   <div class="card"><div class="small">STATUS LANGGANAN</div><div id="customerStatus"></div></div>
+   <div class="card"><div class="small">BAKI TEMPOH</div><div class="stat" id="countdown">--</div></div>
+  </div>
+  <div class="notice" id="subscriptionNotice"></div>
+  <button class="btn secondary" onclick="showPage('home')">Keluar</button>
+ </div>
+ <section class="section">
+  <h2>Koleksi Ceramah Islam</h2>
+  <div id="customerVideos" class="grid"></div>
+ </section>
+</section>
+
+<!-- ADMIN LOGIN -->
+<section id="adminLogin" class="hidden">
+ <div class="card form">
+  <h2>Portal Pentadbir</h2>
+  <label>ID Admin</label><input id="adminUser" placeholder="Admin ID">
+  <label>Kata laluan</label><input id="adminPass" type="password" placeholder="Password">
+  <button class="btn" onclick="adminLogin()">Log Masuk Admin</button>
+  <hr>
+  <p>Terlupa kata laluan?</p>
+  <button class="btn secondary" onclick="resetAdmin()">Hubungi WhatsApp Admin</button>
+  <div id="adminMessage"></div>
+ </div>
+</section>
+
+<!-- ADMIN DASHBOARD -->
+<section id="adminDashboard" class="hidden">
+ <h2>ADMIN CONTROL CENTER</h2>
+ <p>Pengurusan portal Sayangi Islam Kita Sepenuh Hati.</p>
+ <div class="grid">
+  <div class="card"><div class="small">JUMLAH PELANGGAN</div><div class="stat" id="totalUsers">0</div></div>
+  <div class="card"><div class="small">MENUNGGU</div><div class="stat" id="totalPending">0</div></div>
+  <div class="card"><div class="small">LULUS</div><div class="stat" id="totalApproved">0</div></div>
+  <div class="card"><div class="small">VIDEO</div><div class="stat" id="totalVideos">0</div></div>
+ </div>
+
+ <div class="tabs">
+  <button class="active" onclick="adminTab('members',this)">Pelanggan</button>
+  <button onclick="adminTab('videos',this)">Video YouTube</button>
+  <button onclick="adminTab('settings',this)">Tetapan Web</button>
+  <button onclick="adminTab('security',this)">Keselamatan</button>
+ </div>
+
+ <section id="adminMembers">
+  <h2>Senarai Pendaftaran Pelanggan</h2>
+  <input id="memberSearch" placeholder="Cari nama atau ID pelanggan..." oninput="renderMembers()">
+  <div class="table-wrap">
+   <table><thead><tr>
+    <th>ID</th><th>Nama</th><th>Pakej</th><th>Status</th><th>Tamat</th><th>Tindakan</th>
+   </tr></thead><tbody id="memberRows"></tbody></table>
+  </div>
+ </section>
+
+ <section id="adminVideos" class="hidden">
+  <h2>Pengurusan Koleksi YouTube</h2>
+  <div class="card">
+   <label>Tajuk ceramah</label><input id="videoTitle" placeholder="Contoh: Kepentingan Solat">
+   <label>ID YouTube atau pautan YouTube</label>
+   <input id="videoUrl" placeholder="https://www.youtube.com/watch?v=...">
+   <label>Keterangan</label><textarea id="videoDesc" placeholder="Keterangan ringkas"></textarea>
+   <button class="btn" onclick="addVideo()">Tambah Video</button>
+  </div>
+  <div id="adminVideoList" class="grid section"></div>
+ </section>
+
+ <section id="adminSettings" class="hidden">
+  <h2>Kemaskini Maklumat Portal</h2>
+  <div class="card">
+   <label>Tajuk utama</label><input id="setHeroTitle">
+   <label>Tajuk header</label><input id="setBrand">
+   <label>Penerangan utama</label><textarea id="setHeroDesc"></textarea>
+   <label>Tajuk bahagian pengenalan</label><input id="setAbout">
+   <label>Tajuk bahagian pakej</label><input id="setPlan">
+   <label>Tajuk bahagian hubungan</label><input id="setContact">
+   <label>Nombor WhatsApp Admin (format antarabangsa)</label>
+   <input id="setWhatsapp" placeholder="60123456789">
+   <label>Logo portal (pilih daripada galeri telefon)</label>
+   <input id="setLogo" type="file" accept="image/*">
+   <button class="btn" onclick="saveSettings()">Simpan Semua Tetapan</button>
+   <button class="btn secondary" onclick="removeLogo()">Buang Logo</button>
+  </div>
+ </section>
+
+ <section id="adminSecurity" class="hidden">
+  <h2>Tukar Kata Laluan Admin</h2>
+  <div class="card form">
+   <label>Kata laluan lama</label><input id="oldPassword" type="password">
+   <label>Kata laluan baharu</label><input id="newPassword" type="password">
+   <label>Sahkan kata laluan baharu</label><input id="confirmPassword" type="password">
+   <button class="btn" onclick="changePassword()">Kemaskini Kata Laluan</button>
+  </div>
+ </section>
+ <hr>
+ <button class="btn secondary" onclick="adminLogout()">Log Keluar Admin</button>
+</section>
+
+</main>
+
+<footer>
+ <div id="footerTitle">SAYANGI ISLAM KITA SEPENUH HATI</div>
+ <p>Semoga ilmu menjadi cahaya dalam kehidupan.</p>
+ <div class="small">© <span id="year"></span> Hak cipta terpelihara.</div>
+</footer>
+
+<script>
+const KEY='sik_portal_v1';
+
+const DEFAULT={
+ adminUser:'admin',
+ adminPass:'Islam@2026',
+ whatsapp:'',
+ customers:[],
+ videos:[],
+ settings:{
+  heroTitle:'Sayangi Islam Kita Sepenuh Hati',
+  brand:'SAYANGI ISLAM KITA',
+  heroDesc:'Mendekatkan diri kepada Allah melalui ilmu, penghayatan dan ceramah agama Islam. Jadikan ilmu sebagai panduan kehidupan seharian.',
+  about:'Mengapa Bersama Kami?',
+  plan:'Pilih Pakej Langganan',
+  contact:'Sertai Kami',
+  logo:''
+ }
+};
+
+let db=loadDB();
+let selectedPlan='monthly';
+let currentCustomer=null;
+let adminAuthenticated=false;
+
+function loadDB(){
+ try{
+  const saved=localStorage.getItem(KEY);
+  return saved?{...structuredClone(DEFAULT),...JSON.parse(saved),
+   settings:{...DEFAULT.settings,...JSON.parse(saved).settings}}:
+   structuredClone(DEFAULT);
+ }catch(e){return structuredClone(DEFAULT)}
+}
+
+function saveDB(){
+ localStorage.setItem(KEY,JSON.stringify(db));
+}
+
+function el(id){return document.getElementById(id)}
+
+function showPage(id){
+ if(id==='adminDashboard'&&!adminAuthenticated)return showPage('adminLogin');
+ if(id==='customerDashboard'&&!currentCustomer)return showPage('customerLogin');
+ document.querySelectorAll('main>section').forEach(x=>x.classList.add('hidden'));
+ el(id).classList.remove('hidden');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function applySettings(){
+ const s=db.settings;
+ el('heroTitle').textContent=s.heroTitle;
+ el('navBrand').textContent=s.brand;
+ el('heroDesc').textContent=s.heroDesc;
+ el('aboutTitle').textContent=s.about;
+ el('planTitle').textContent=s.plan;
+ el('contactTitle').textContent=s.contact;
+ el('footerTitle').textContent=s.brand;
+
+ if(s.logo){
+  el('navLogo').src=s.logo;
+  el('navLogo').classList.remove('hidden');
+  el('navIcon').classList.add('hidden');
+ }else{
+  el('navLogo').classList.add('hidden');
+  el('navIcon').classList.remove('hidden');
+ }
+}
+
+function selectPlan(plan){
+ selectedPlan=plan;
+ el('regPlan').value=plan;
+ showPage('register');
+}
+
+function makeId(){
+ let next=Number(localStorage.getItem('sik_last_id')||0)+1;
+ localStorage.setItem('sik_last_id',next);
+ return 'SIK-'+new Date().getFullYear()+'-'+String(next).padStart(5,'0');
+}
+
+function registerCustomer(){
+ const name=el('regName').value.trim();
+ const phone=el('regPhone').value.trim();
+ const plan=el('regPlan').value;
+
+ if(!name||!phone){
+  alert('Sila isi nama dan nombor telefon.');
+  return;
+ }
+
+ if(!/^[0-9+\-\s]{8,18}$/.test(phone)){
+  alert('Nombor telefon tidak sah.');
+  return;
+ }
+
+ const id=makeId();
+
+ db.customers.push({
+  id,name,phone,plan,status:'Menunggu',
+  created:new Date().toISOString(),start:null,end:null
+ });
+
+ saveDB();
+
+ el('regResult').innerHTML=
+  '<div class="notice"><b>Pendaftaran berjaya dihantar!</b><br>'+
+  'ID Pelanggan: <b>'+id+'</b><br>'+
+  'Sila simpan ID ini. Status anda: Menunggu pengesahan admin.</div>';
+
+ ['regName','regPhone'].forEach(x=>el(x).value='');
+}
+
+function customerLogin(){
+ const id=el('customerId').value.trim().toUpperCase();
+ const user=db.customers.find(x=>x.id===id);
+
+ if(!user){
+  el('loginMessage').innerHTML='<div class="notice">ID pelanggan tidak dijumpai.</div>';
+  return;
+ }
+
+ currentCustomer=user;
+ renderCustomer();
+ showPage('customerDashboard');
+}
+
+function renderCustomer(){
+ const c=currentCustomer;
+
+ el('welcomeCustomer').textContent='Assalamualaikum, '+c.name;
+
+ el('customerDetails').textContent=
+ 'ID: '+c.id+' | Pakej: '+(c.plan==='monthly'?'Bulanan RM5.00':'Tahunan RM50.00');
+
+ const approved=c.status==='Lulus'&&c.end&&new Date(c.end)>new Date();
+
+ el('customerStatus').innerHTML=
+ '<span class="status '+(approved?'approved':c.status==='Menunggu'?'pending':'failed')+'">'+c.status+'</span>';
+
+ if(approved){
+  const ms=new Date(c.end)-new Date();
+  const days=Math.max(0,Math.ceil(ms/86400000));
+
+  el('countdown').textContent=days+' hari';
+
+  el('subscriptionNotice').textContent=
+  'Langganan aktif sehingga '+new Date(c.end).toLocaleDateString('ms-MY');
+
+  renderCustomerVideos();
+ }else{
+  el('countdown').textContent='--';
+
+  el('subscriptionNotice').textContent=c.status==='Menunggu'?
+   'Permohonan anda sedang menunggu pengesahan admin.':
+   'Langganan tidak aktif. Sila hubungi pihak pentadbir.';
+
+  el('customerVideos').innerHTML=
+  '<div class="notice">Video hanya boleh ditonton selepas langganan diluluskan dan masih aktif.</div>';
+ }
+}
+
+/* PEMBAIKAN YOUTUBE: BACA ID DARIPADA PELBAGAI JENIS PAUTAN */
+
+function videoId(value){
+ try{
+  value=value.trim();
+
+  if(/^[a-zA-Z0-9_-]{11}$/.test(value)){
+   return value;
+  }
+
+  const u=new URL(value);
+
+  const host=u.hostname.toLowerCase().replace(/^www\./,'');
+
+  if(host==='youtu.be'){
+   const id=u.pathname.split('/').filter(Boolean)[0];
+   return /^[a-zA-Z0-9_-]{11}$/.test(id||'')?id:null;
+  }
+
+  if(host==='youtube.com'||host==='m.youtube.com'||host==='youtube-nocookie.com'){
+   if(u.searchParams.get('v')){
+    const id=u.searchParams.get('v');
+    return /^[a-zA-Z0-9_-]{11}$/.test(id)?id:null;
+   }
+
+   const parts=u.pathname.split('/').filter(Boolean);
+
+   if(['embed','shorts','live','v'].includes(parts[0])){
+    const id=parts[1];
+    return /^[a-zA-Z0-9_-]{11}$/.test(id||'')?id:null;
+   }
+  }
+
+  return null;
+ }catch(e){
+  return null;
+ }
+}
+
+/* PEMBAIKAN PEMAIN YOUTUBE */
+
+function videoCard(v,admin=false){
+
+ const wrap=document.createElement('article');
+ wrap.className='card video';
+
+ const frame=document.createElement('iframe');
+
+ frame.src='https://www.youtube.com/embed/'+
+ encodeURIComponent(v.id)+'?rel=0&playsinline=1';
+
+ frame.title=v.title;
+ frame.loading='lazy';
+
+ /* Penting untuk mengelakkan ralat HTTP Referer 153 */
+ frame.referrerPolicy='strict-origin-when-cross-origin';
+
+ frame.setAttribute('allow',
+ 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+
+ frame.setAttribute('allowfullscreen','');
+
+ frame.setAttribute('frameborder','0');
+
+ const info=document.createElement('div');
+ info.className='video-info';
+
+ const title=document.createElement('h3');
+ title.textContent=v.title;
+
+ const desc=document.createElement('p');
+ desc.textContent=v.desc||'Ceramah agama Islam';
+
+ /* Pautan alternatif sekiranya video tidak boleh dimainkan di dalam portal */
+ const link=document.createElement('a');
+ link.className='video-link';
+ link.href='https://www.youtube.com/watch?v='+encodeURIComponent(v.id);
+ link.target='_blank';
+ link.rel='noopener';
+ link.textContent='▶ Tonton terus di YouTube';
+
+ info.append(title,desc,link);
+
+ if(admin){
+  const del=document.createElement('button');
+  del.className='btn secondary';
+  del.textContent='Padam Video';
+  del.onclick=()=>deleteVideo(v.id);
+  info.append(del);
+ }
+
+ wrap.append(frame,info);
+
+ return wrap;
+}
+
+function renderCustomerVideos(){
+ const area=el('customerVideos');
+ area.replaceChildren();
+
+ if(!db.videos.length){
+  area.textContent='Koleksi video akan dikemaskini oleh admin.';
+  return;
+ }
+
+ db.videos.forEach(v=>area.append(videoCard(v)));
+}
+
+function addVideo(){
+ const title=el('videoTitle').value.trim();
+ const raw=el('videoUrl').value.trim();
+ const desc=el('videoDesc').value.trim();
+
+ const id=videoId(raw);
+
+ if(!title||!id){
+  alert('Pautan atau ID YouTube tidak sah. Sila semak semula.');
+  return;
+ }
+
+ db.videos.unshift({
+  id,title,desc,created:new Date().toISOString()
+ });
+
+ saveDB();
+
+ ['videoTitle','videoUrl','videoDesc'].forEach(x=>el(x).value='');
+
+ renderAdmin();
+
+ alert('Video berjaya ditambah.');
+}
+
+function deleteVideo(id){
+ if(!confirm('Padam video ini?'))return;
+
+ db.videos=db.videos.filter(v=>v.id!==id);
+
+ saveDB();
+ renderAdmin();
+}
+
+function adminLogin(){
+ if(el('adminUser').value===db.adminUser&&
+ el('adminPass').value===db.adminPass){
+
+  adminAuthenticated=true;
+  renderAdmin();
+  showPage('adminDashboard');
+
+ }else{
+  el('adminMessage').textContent='ID admin atau kata laluan tidak tepat.';
+ }
+}
+
+function adminLogout(){
+ adminAuthenticated=false;
+ showPage('home');
+}
+
+function adminTab(tab,button){
+ ['members','videos','settings','security'].forEach(x=>
+  el('admin'+x[0].toUpperCase()+x.slice(1)).classList.add('hidden')
+ );
+
+ el('admin'+tab[0].toUpperCase()+tab.slice(1)).classList.remove('hidden');
+
+ document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
+
+ button.classList.add('active');
+}
+
+function renderAdmin(){
+ el('totalUsers').textContent=db.customers.length;
+ el('totalPending').textContent=db.customers.filter(x=>x.status==='Menunggu').length;
+ el('totalApproved').textContent=db.customers.filter(x=>x.status==='Lulus').length;
+ el('totalVideos').textContent=db.videos.length;
+
+ renderMembers();
+
+ const list=el('adminVideoList');
+ list.replaceChildren();
+
+ db.videos.forEach(v=>list.append(videoCard(v,true)));
+
+ const s=db.settings;
+
+ el('setHeroTitle').value=s.heroTitle;
+ el('setBrand').value=s.brand;
+ el('setHeroDesc').value=s.heroDesc;
+ el('setAbout').value=s.about;
+ el('setPlan').value=s.plan;
+ el('setContact').value=s.contact;
+ el('setWhatsapp').value=db.whatsapp;
+}
+
+function renderMembers(){
+ const query=(el('memberSearch').value||'').toLowerCase();
+ const body=el('memberRows');
+
+ body.replaceChildren();
+
+ db.customers.filter(c=>
+  (c.name+' '+c.id).toLowerCase().includes(query)
+ ).forEach(c=>{
+
+  const tr=document.createElement('tr');
+
+  const values=[
+   c.id,c.name,
+   c.plan==='monthly'?'Bulanan':'Tahunan',
+   c.status,
+   c.end?new Date(c.end).toLocaleDateString('ms-MY'):'Belum bermula'
+  ];
+
+  values.forEach((v,i)=>{
+   const td=document.createElement('td');
+
+   if(i===3){
+    const span=document.createElement('span');
+    span.className='status '+(v==='Lulus'?'approved':v==='Menunggu'?'pending':'failed');
+    span.textContent=v;
+    td.append(span);
+   }else{
+    td.textContent=v;
+   }
+
+   tr.append(td);
+  });
+
+  const td=document.createElement('td');
+  const actions=document.createElement('div');
+  actions.className='actions';
+
+  const approve=document.createElement('button');
+  approve.className='btn';
+  approve.textContent='Lulus';
+  approve.onclick=()=>updateStatus(c.id,'Lulus');
+
+  const pending=document.createElement('button');
+  pending.className='btn secondary';
+  pending.textContent='Menunggu';
+  pending.onclick=()=>updateStatus(c.id,'Menunggu');
+
+  const failed=document.createElement('button');
+  failed.className='btn secondary';
+  failed.textContent='Gagal';
+  failed.onclick=()=>updateStatus(c.id,'Gagal');
+
+  const del=document.createElement('button');
+  del.className='btn secondary';
+  del.textContent='Padam';
+  del.onclick=()=>deleteCustomer(c.id);
+
+  actions.append(approve,pending,failed,del);
+  td.append(actions);
+  tr.append(td);
+  body.append(tr);
+ });
+}
+
+function updateStatus(id,status){
+ const c=db.customers.find(x=>x.id===id);
+
+ if(!c)return;
+
+ c.status=status;
+
+ if(status==='Lulus'){
+  const now=new Date();
+  c.start=now.toISOString();
+  now.setDate(now.getDate()+(c.plan==='monthly'?30:365));
+  c.end=now.toISOString();
+ }else{
+  c.start=null;
+  c.end=null;
+ }
+
+ saveDB();
+ renderAdmin();
+
+ if(currentCustomer&&currentCustomer.id===id){
+  currentCustomer=c;
+  renderCustomer();
+ }
+}
+
+function deleteCustomer(id){
+ if(!confirm('Padam rekod pelanggan ini?'))return;
+
+ db.customers=db.customers.filter(x=>x.id!==id);
+
+ saveDB();
+ renderAdmin();
+}
+
+function saveSettings(){
+ Object.assign(db.settings,{
+  heroTitle:el('setHeroTitle').value.trim(),
+  brand:el('setBrand').value.trim(),
+  heroDesc:el('setHeroDesc').value.trim(),
+  about:el('setAbout').value.trim(),
+  plan:el('setPlan').value.trim(),
+  contact:el('setContact').value.trim()
+ });
+
+ db.whatsapp=el('setWhatsapp').value.replace(/\D/g,'');
+
+ const file=el('setLogo').files[0];
+
+ const finish=()=>{
+  saveDB();
+  applySettings();
+  alert('Tetapan portal berjaya disimpan.');
+ };
+
+ if(file){
+  if(file.size>1024*1024){
+   alert('Logo terlalu besar. Sila pilih gambar bawah 1MB.');
+   return;
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=()=>{
+   db.settings.logo=reader.result;
+   finish();
+  };
+
+  reader.readAsDataURL(file);
+
+ }else{
+  finish();
+ }
+}
+
+function removeLogo(){
+ db.settings.logo='';
+ saveDB();
+ applySettings();
+ alert('Logo dibuang.');
+}
+
+function changePassword(){
+ const old=el('oldPassword').value;
+ const next=el('newPassword').value;
+ const confirmPass=el('confirmPassword').value;
+
+ if(old!==db.adminPass){
+  return alert('Kata laluan lama tidak tepat.');
+ }
+
+ if(next.length<8){
+  return alert('Kata laluan baharu mesti sekurang-kurangnya 8 aksara.');
+ }
+
+ if(next!==confirmPass){
+  return alert('Pengesahan kata laluan tidak sama.');
+ }
+
+ db.adminPass=next;
+ saveDB();
+
+ ['oldPassword','newPassword','confirmPassword'].forEach(x=>el(x).value='');
+
+ alert('Kata laluan admin berjaya ditukar.');
+}
+
+function resetAdmin(){
+ if(!db.whatsapp){
+  return alert('Nombor WhatsApp belum ditetapkan. Hubungi pentadbir sistem.');
+ }
+
+ const msg=encodeURIComponent(
+ 'Assalamualaikum. Saya ingin memohon bantuan penetapan semula kata laluan admin portal Sayangi Islam Kita Sepenuh Hati.'
+ );
+
+ window.open('https://wa.me/'+db.whatsapp+'?text='+msg,'_blank');
+}
+
+el('year').textContent=new Date().getFullYear();
+
+applySettings();
+</script>
+
+</body>
+</html>
